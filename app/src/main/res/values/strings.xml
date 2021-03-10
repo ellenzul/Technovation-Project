@@ -2,4 +2,10 @@
     <string name="app_name">FoodShare</string>
     <string name="todo">TODO</string>
     <string name="textview">TextView</string>
+    <string name="add_item">Add Item</string>
+    <string name="tvAddTask">Add a Task</string>
+    <string name="attach_an_image">Add Image</string>
+    <string name="description">Description</string>
+    <string name="title">Food Name</string>
+    <string name="add_a_task">Add New Food Details</string>
 </resources>
