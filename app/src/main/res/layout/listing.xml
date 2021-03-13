@@ -10,6 +10,7 @@
         android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,25 +18,16 @@
 
         <ImageView
             android:id="@+id/foodImage"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/todo"
             tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/foodName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
-            android:layout_marginTop="10dp"
-            android:text="@string/textview"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <TextView
             android:id="@+id/foodTags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="160dp"
             android:layout_marginTop="75dp"
             android:text="@string/textview" />
 
@@ -43,7 +35,7 @@
             android:id="@+id/foodDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="160dp"
             android:layout_marginTop="45dp"
             android:text="@string/textview"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
@@ -52,9 +44,26 @@
             android:id="@+id/foodLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_marginStart="160dp"
             android:layout_marginTop="100dp"
             android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/foodLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="125dp"
+            android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/foodName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/textview"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     </androidx.cardview.widget.CardView>
 

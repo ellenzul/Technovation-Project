@@ -42,6 +42,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.tagsTextview.setText(item.tags);
         holder.locationTextview.setText(item.location);
         holder.foodImage.setImageBitmap(item.image);
+        holder.portionTextview.setText(item.portions);
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView tagsTextview;
         public TextView locationTextview;
         public ImageView foodImage;
+        public TextView portionTextview;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -62,6 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             tagsTextview = itemView.findViewById(R.id.foodTags);
             locationTextview = itemView.findViewById(R.id.foodLocation);
             foodImage = itemView.findViewById(R.id.foodImage);
+            portionTextview = itemView.findViewById(R.id.foodLeft);
 
 
         }

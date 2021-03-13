@@ -25,6 +25,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:contentDescription="@string/add_item"
+        android:text="@string/add_item"
         android:focusable="true"
         android:tint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

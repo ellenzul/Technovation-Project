@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         foodList = new ArrayList<>();
-        TaskItem fakeItem = new TaskItem("Food1", "Description of food", "Peanuts", "123 Mohave Terrace");
+        TaskItem fakeItem = new TaskItem("Food1", "Description of food", "Peanuts", "123 Mohave Terrace", "2 Portions Available");
         fakeItem.image = BitmapFactory.decodeResource(this.getResources(), R.drawable.foodimage);
         foodList.add(fakeItem);
-        TaskItem fakeItem2 = new TaskItem("Food2", "Description of food2!", "None", "Local store");
+        TaskItem fakeItem2 = new TaskItem("Food2", "Description of food2!", "None", "Local store", "5 Portions Available");
         fakeItem2.image = BitmapFactory.decodeResource(this.getResources(), R.drawable.foodimage);
         foodList.add(fakeItem2);
 

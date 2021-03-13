@@ -7,5 +7,7 @@
     <string name="attach_an_image">Add Image</string>
     <string name="description">Description</string>
     <string name="title">Food Name</string>
+    <string name="tags">Add Tags/Allergens</string>
+    <string name="Portions">Add Number of Portions Available</string>
     <string name="add_a_task">Add New Food Details</string>
 </resources>
