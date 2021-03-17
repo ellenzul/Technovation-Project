@@ -15,19 +15,27 @@ import java.util.ArrayList;
 import com.example.foodshare.models.TaskItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.parceler.Parcels;
+
 public class MainActivity extends AppCompatActivity {
     private ArrayList<TaskItem> foodList;
     private RecyclerView itemsRecyclerView;
     private ItemAdapter itemAdapter;
     private Button addButton;
+    static final int ADD_REQUEST_ID = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = new Intent(this, AddActivity.class);
+        this.startActivityForResult(intent, ADD_REQUEST_ID);
+
         addButton = (Button) findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View view) {
 
@@ -53,6 +61,19 @@ public class MainActivity extends AppCompatActivity {
     public void openactivity_add() {
         Intent intent = new Intent(this, AddActivity.class);
         startActivity(intent);
+
+
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == ADD_REQUEST_ID) {
+            TaskItem newItem = Parcels.unwrap(data.getParcelableExtra("task_item"));
+            foodList.add(0, newItem);
+            itemAdapter.notifyItemInserted(0);
+            itemsRecyclerView.scrollToPosition(0);
+        }
+    }
 }
