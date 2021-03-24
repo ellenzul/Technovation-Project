@@ -12,4 +12,5 @@
     <string name="add_a_task">Add New Food Details</string>
     <string name="back">Go Back</string>
     <string name="Location">Add Location Address</string>
+    <string name="confirmation">Confirm</string>
 </resources>
