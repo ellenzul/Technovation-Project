@@ -13,4 +13,12 @@
     <string name="back">Go Back</string>
     <string name="Location">Add Location Address</string>
     <string name="confirmation">Confirm</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="welcome">Sign in to FoodShare</string>
+    <string name="logout">Logout</string>
+    <string name="newacc">New User? Sign Up</string>
+
+
 </resources>

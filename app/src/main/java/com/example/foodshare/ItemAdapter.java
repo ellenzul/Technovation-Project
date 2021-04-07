@@ -47,7 +47,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.tagsTextview.setText(item.tags);
         holder.locationTextview.setText(item.location);
         holder.foodImage.setImageBitmap(item.image);
-        holder.portionTextview.setText(item.portions);
     }
 
     @Override
@@ -61,7 +60,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         public TextView tagsTextview;
         public TextView locationTextview;
         public ImageView foodImage;
-        public TextView portionTextview;
         public CardView cardView;
 
         public ViewHolder(View itemView) {
@@ -72,7 +70,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             tagsTextview = itemView.findViewById(R.id.foodTags);
             locationTextview = itemView.findViewById(R.id.foodLocation);
             foodImage = itemView.findViewById(R.id.foodImage);
-            portionTextview = itemView.findViewById(R.id.foodLeft);
             cardView = itemView.findViewById(R.id.cardView);
 
             cardView.setOnClickListener(this);
@@ -91,6 +88,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 intent.putExtra(TaskItem.class.getSimpleName(), Parcels.wrap(item));
                 // execute the intent
                 context.startActivity(intent);
+
 
             }
         }

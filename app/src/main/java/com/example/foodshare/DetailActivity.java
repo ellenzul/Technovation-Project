@@ -15,10 +15,9 @@ import org.parceler.Parcels;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private Button btnComplete;
     private TextView tvTitle;
     private TextView tvDescription;
-    private ImageView itemimageView;
+    private ImageView itemImageView;
     private TaskItem item;
     private Button btnConfirm;
 
@@ -27,29 +26,26 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        btnComplete = findViewById(R.id.btnComplete);
         tvTitle = findViewById(R.id.tvTitle);
         tvDescription = findViewById(R.id.tvDescription);
-        itemimageView = findViewById(R.id.itemImageView);
+        itemImageView = findViewById(R.id.itemImageView);
         btnConfirm = findViewById(R.id.btnConfirm);
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
+        item = Parcels.unwrap(getIntent().getParcelableExtra(TaskItem.class.getSimpleName()));
+        tvTitle.setText(item.title);
+        tvDescription.setText(item.description);
+        itemImageView.setImageBitmap(item.image);
 
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openNewActivity();
             }
         });
     }
-    public void openNewActivity(){
+
+    public void openNewActivity() {
         Intent intent = new Intent(this, ConfirmationActivity.class);
         startActivity(intent);
-
-        item = Parcels.unwrap(getIntent().getParcelableExtra(TaskItem.class.getSimpleName()));
-
-        tvTitle.setText(item.title);
-        tvDescription.setText(item.description);
-        itemimageView.setImageBitmap(item.image);
-
     }
 }

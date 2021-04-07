@@ -21,7 +21,6 @@ public class AddActivity extends AppCompatActivity {
     private EditText etTitle;
     private EditText etDescription;
     private EditText etTags;
-    private EditText etPortion;
     private EditText etLocation;
     private Button btnAddImage;
     private ImageView addedImageView;
@@ -37,7 +36,6 @@ public class AddActivity extends AppCompatActivity {
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
         etTags = findViewById(R.id.etTags);
-        etPortion = findViewById(R.id.etPortions);
         etLocation = findViewById(R.id.etLocation);
 
 
@@ -68,7 +66,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void onAddItem(View v) {
 
-        TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getText().toString(), etTags.getText().toString(), etPortion.getText().toString(), etLocation.getText().toString());
+        TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getText().toString(), etTags.getText().toString(), etLocation.getText().toString());
         newItem.image = addedImage;
         Intent data = new Intent();
         data.putExtra("task_item", Parcels.wrap(newItem));
