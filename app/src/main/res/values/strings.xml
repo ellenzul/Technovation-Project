@@ -19,6 +19,7 @@
     <string name="welcome">Sign in to FoodShare</string>
     <string name="logout">Logout</string>
     <string name="newacc">New User? Sign Up</string>
-
-
+    <string name="confirm_sent">Your request has been sent!</string>!
+    <string name="exit">EXIT</string>
+    <string name="uploads">My Uploads</string>
 </resources>
