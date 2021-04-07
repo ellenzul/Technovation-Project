@@ -13,4 +13,7 @@
     <string name="back">Go Back</string>
     <string name="Location">Add Location Address</string>
     <string name="confirmation">Confirm</string>
+    <string name="confirm_sent">Your request has been sent!</string>!
+    <string name="exit">EXIT</string>
+    <string name="uploads">My Uploads</string>
 </resources>
