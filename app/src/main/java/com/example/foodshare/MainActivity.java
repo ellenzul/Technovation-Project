@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +32,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.parceler.Parcels;
 
@@ -37,8 +43,10 @@ public class MainActivity extends AppCompatActivity {
     private ItemAdapter itemAdapter;
     private Button addButton;
     static final int ADD_REQUEST_ID = 10;
+    final long ONE_MEGABYTE = 1024*1024;
 
     FirebaseFirestore db;
+    private FirebaseStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         itemsRecyclerView.setAdapter(itemAdapter);
 
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
         fetchPostsFromFirebase();
     }
 
@@ -97,11 +106,32 @@ public class MainActivity extends AppCompatActivity {
                                         postData.get("tags").toString(),
                                         postData.get("location").toString()
                                 );
+                                if (postData.get("imageUrl") != null) {
+                                    String imageUrl = postData.get("imageUrl").toString();
+                                    newPost.imageUri = Uri.parse(imageUrl);
+                                    StorageReference httpsReference = storage.getReferenceFromUrl(imageUrl);
+                                    httpsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                            newPost.fullImage = bmp;
+                                            itemAdapter.notifyDataSetChanged();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception exception) {
+                                            Toast.makeText(MainActivity.this, "Image download failed.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
                                 foodList.add(newPost);
                                 itemAdapter.notifyItemInserted(foodList.size() - 1);
                             }
                         } else {
                             Log.w("MainActivity", "Error getting documents.", task.getException());
+
                         }
                     }
                 });
@@ -112,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
         dbItem.put("name", item.title);
         dbItem.put("description", item.description);
         dbItem.put("tags", item.tags);
+        dbItem.put("imageUrl", item.imageUri.toString());
         dbItem.put("location", new GeoPoint(50, 50)); // Fake location for now!!
 
         db.collection("posts").add(dbItem)

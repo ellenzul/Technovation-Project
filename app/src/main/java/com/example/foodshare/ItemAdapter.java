@@ -2,6 +2,7 @@ package com.example.foodshare;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,13 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.descriptionTextview.setText(item.description);
         holder.tagsTextview.setText(item.tags);
         holder.locationTextview.setText(item.location);
-        holder.foodImage.setImageBitmap(item.image);
+        holder.foodImage.setImageBitmap(item.fullImage);
+        if (item.fullImage != null) {
+            Bitmap scaledImage = Bitmap.createScaledBitmap(item.fullImage, 150, 150, false);
+            holder.foodImage.setImageBitmap(scaledImage);
+        } else {
+            holder.foodImage.setImageBitmap(null);
+        }
     }
 
     @Override

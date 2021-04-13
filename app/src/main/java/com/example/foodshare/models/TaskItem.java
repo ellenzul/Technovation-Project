@@ -1,6 +1,10 @@
 package com.example.foodshare.models;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import org.parceler.Parcel;
 
@@ -12,9 +16,8 @@ public class TaskItem {
     public String description;
     public String tags;
     public String location;
-    public Bitmap image;
-
-
+    public Uri imageUri;
+    public Bitmap fullImage;
 
     public TaskItem() {
         // all items are initially incomplete
