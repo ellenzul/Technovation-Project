@@ -174,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void openMyUploads() {
         Intent intent = new Intent(this, NotificationActivity.class);
+        intent.putExtra("current_user", currentUserRef);
         this.startActivity(intent);
     }
 
