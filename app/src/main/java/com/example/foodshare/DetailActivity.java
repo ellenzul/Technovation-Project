@@ -20,6 +20,7 @@ public class DetailActivity extends AppCompatActivity {
     private ImageView itemImageView;
     private TaskItem item;
     private Button btnConfirm;
+    private Button btnComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class DetailActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         itemImageView = findViewById(R.id.itemImageView);
         btnConfirm = findViewById(R.id.btnConfirm);
+        btnComplete = findViewById(R.id.btnComplete);
 
         item = Parcels.unwrap(getIntent().getParcelableExtra(TaskItem.class.getSimpleName()));
         tvTitle.setText(item.title);
@@ -41,6 +43,8 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 openNewActivity();
             }
+
+
         });
     }
 

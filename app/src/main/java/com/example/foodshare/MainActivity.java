@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private Button addButton;
     static final int ADD_REQUEST_ID = 10;
 
+    public String currentUserRef;
+
     FirebaseFirestore db;
 
     @Override
@@ -52,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(view -> openAddActivity());
 
         foodList = new ArrayList<>();
+        currentUserRef = getIntent().getExtras().get("current_user").toString();
 
         itemsRecyclerView = findViewById(R.id.itemsRecyclerView);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.miLogout:
                 signOut();
+                return true;
+
+            case R.id.miUploads:
+                openMyUploads();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -113,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         dbItem.put("description", item.description);
         dbItem.put("tags", item.tags);
         dbItem.put("location", new GeoPoint(50, 50)); // Fake location for now!!
+        dbItem.put("postCreator", currentUserRef);
 
         db.collection("posts").add(dbItem)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -131,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    public void openMyUploads() {
+        Intent intent = new Intent(this, NotificationActivity.class);
+        this.startActivity(intent);
     }
 
     public void openAddActivity() {

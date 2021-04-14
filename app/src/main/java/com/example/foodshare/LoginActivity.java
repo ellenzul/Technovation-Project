@@ -17,12 +17,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etPassword;
     private Button btnLogin;
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
     private static final String TAG = "EmailPassword";
 
 
@@ -38,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> login(v));
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
     }
 
@@ -47,12 +53,29 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            goTo();
+            String email = currentUser.getEmail();
+            db.collection("users")
+                    .whereEqualTo("email", email)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    DocumentReference currentUserRef = document.getReference();
+                                    goTo(currentUserRef);
+                                }
+                            } else {
+                                Log.w("LoginActivity", "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
         }
     }
 
-    private void goTo() {
+    private void goTo(DocumentReference ref) {
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("current_user", ref.getPath());
         this.startActivity(intent);
     }
 
@@ -65,7 +88,24 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser _ = mAuth.getCurrentUser();
-                            goTo();
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            String email = currentUser.getEmail();
+                            db.collection("users")
+                                    .whereEqualTo("email", email)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    DocumentReference currentUserRef = document.getReference();
+                                                    goTo(currentUserRef);
+                                                }
+                                            } else {
+                                                Log.w("LoginActivity", "Error getting documents.", task.getException());
+                                            }
+                                        }
+                                    });
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
