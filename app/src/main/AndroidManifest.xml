@@ -19,6 +19,8 @@
         <activity android:name=".DetailActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".MainActivity"/>
+        <activity android:name=".NotificationActivity"/>
+        <activity android:name=".RequestsActivity"/>
     </application>
 
 </manifest>

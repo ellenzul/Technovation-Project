@@ -99,6 +99,7 @@ TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getT
         StorageReference newPostImageRef = imagesRef.child("post_" + nowString + ".jpg");
 
         Bitmap bitmap = ((BitmapDrawable) addedImageView.getDrawable()).getBitmap();
+        newItem.fullImage = bitmap;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();

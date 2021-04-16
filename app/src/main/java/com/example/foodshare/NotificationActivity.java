@@ -55,7 +55,7 @@ public class NotificationActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         fetchMyPostsFromFirebase();
 
-        myPostsRecyclerView = findViewById(R.id.itemsRecyclerView);
+        myPostsRecyclerView = findViewById(R.id.myPostsRecyclerView);
         myPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemAdapter = new ItemAdapter(myPostsList);
         myPostsRecyclerView.setAdapter(itemAdapter);
@@ -88,7 +88,7 @@ public class NotificationActivity extends AppCompatActivity {
                                         public void onSuccess(byte[] bytes) {
                                             Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                             newPost.fullImage = bmp;
-                                            // TODO: do something like adapter.notifyDataSetChanged();
+                                            itemAdapter.notifyDataSetChanged();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -99,7 +99,7 @@ public class NotificationActivity extends AppCompatActivity {
                                     });
                                 }
                                 myPostsList.add(newPost);
-                                // TODO: do something like adapter.notifyItemInserted(myPostsList.size() - 1);
+                                itemAdapter.notifyItemInserted(myPostsList.size() - 1);
                             }
                         } else {
                             Log.w("NotificationActivity", "Error getting documents.", task.getException());

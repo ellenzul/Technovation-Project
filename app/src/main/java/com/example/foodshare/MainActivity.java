@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         dbItem.put("description", item.description);
         dbItem.put("tags", item.tags);
         dbItem.put("imageUrl", item.imageUri.toString());
-        dbItem.put("location", new GeoPoint(50, 50)); // Fake location for now!!
+        dbItem.put("location", item.location);
         dbItem.put("postCreator", currentUserRef);
 
         db.collection("posts").add(dbItem)
