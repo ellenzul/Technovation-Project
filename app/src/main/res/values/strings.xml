@@ -23,4 +23,8 @@
     <string name="exit">EXIT</string>
     <string name="uploads">My Uploads</string>
     <string name="request_text">Requests</string>
+    <string name="about">About</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="aboutDescription">FoodShare, founded in 2020 in Fremont, California, has been focused on resolving one of the most common but impactful problems of our generation: food waste. With the world’s climate continually being negatively impacted by industrialized farming, our world, especially the United States, is still unable to curve the waste of food in our lifestyles. Our goal was to create a mobile app to solve this issue that would not only help reduce the food waste that we as a society generate daily, it would also help those who struggle with food insecurity and financial instability. By bringing these issues to light, we are beginning the process towards a more sustainable and effective method of curbing food waste’s impact through everyday actions in each and every users’ life.
+</string>
 </resources>

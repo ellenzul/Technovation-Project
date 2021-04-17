@@ -10,4 +10,7 @@
         android:id="@+id/miUploads"
         app:showAsAction="never"
         android:title="@string/uploads" />
+    <item
+        android:id="@+id/miAbout"
+        android:title="@string/about" />
 </menu>
