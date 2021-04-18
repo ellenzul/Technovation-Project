@@ -130,4 +130,5 @@ TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getT
         });
 
     }
+
 }

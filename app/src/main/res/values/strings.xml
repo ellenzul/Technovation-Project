@@ -11,7 +11,7 @@
     <string name="Portions">Add Number of Portions Available</string>
     <string name="add_a_task">Add New Food Details</string>
     <string name="back">Go Back</string>
-    <string name="Location">Add Location Address</string>
+    <string name="Location">Add Your Phone Number</string>
     <string name="confirmation">Confirm</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -23,4 +23,6 @@
     <string name="exit">EXIT</string>
     <string name="uploads">My Uploads</string>
     <string name="request_text">Requests</string>
+    <string name="dltpost">Delete Post</string>
+    <string name="phoneno">Phone Number</string>
 </resources>

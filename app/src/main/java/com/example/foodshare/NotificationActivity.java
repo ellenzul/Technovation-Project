@@ -62,6 +62,7 @@ public class NotificationActivity extends AppCompatActivity {
 
     }
 
+
     public void fetchMyPostsFromFirebase() {
         db.collection("posts")
                 .whereEqualTo("postCreator", currentUserRef)
@@ -107,6 +108,7 @@ public class NotificationActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
 
 
