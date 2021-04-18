@@ -92,8 +92,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.miUploads:
                 openMyUploads();
                 return true;
-            default:
+            case R.id.miAbout:
+                openAboutPage();
+                return true;
+                default:
                 return super.onOptionsItemSelected(item);
+
+
         }
     }
 
@@ -174,6 +179,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void openMyUploads() {
         Intent intent = new Intent(this, NotificationActivity.class);
+        intent.putExtra("current_user", currentUserRef);
+        this.startActivity(intent);
+
+    }
+
+    public void openAboutPage() {
+        Intent intent = new Intent(this, AboutActivity.class);
         intent.putExtra("current_user", currentUserRef);
         this.startActivity(intent);
     }
