@@ -1,18 +1,14 @@
 package com.example.foodshare;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +33,6 @@ public class NotificationActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private RecyclerView myPostsRecyclerView;
     private ItemAdapter itemAdapter;
-    public CardView cardView;
 
     public String currentUserRef;
 
@@ -53,15 +48,20 @@ public class NotificationActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
-        fetchMyPostsFromFirebase();
 
         myPostsRecyclerView = findViewById(R.id.myPostsRecyclerView);
         myPostsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemAdapter = new ItemAdapter(myPostsList);
+        itemAdapter = new ItemAdapter(myPostsList, currentUserRef);
         myPostsRecyclerView.setAdapter(itemAdapter);
-
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        myPostsList.clear();
+        itemAdapter.notifyDataSetChanged();
+        fetchMyPostsFromFirebase();
+    }
 
     public void fetchMyPostsFromFirebase() {
         db.collection("posts")
@@ -80,6 +80,8 @@ public class NotificationActivity extends AppCompatActivity {
                                         postData.get("tags").toString(),
                                         postData.get("location").toString()
                                 );
+                                newPost.postCreator = postData.get("postCreator").toString();
+                                newPost.postId = document.getId();
                                 if (postData.get("imageUrl") != null) {
                                     String imageUrl = postData.get("imageUrl").toString();
                                     newPost.imageUri = Uri.parse(imageUrl);
@@ -110,6 +112,5 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
 }
-
 
 

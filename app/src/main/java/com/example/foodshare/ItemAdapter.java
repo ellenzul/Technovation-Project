@@ -22,9 +22,11 @@ import org.parceler.Parcels;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     List<TaskItem> mItems;
     Context context;
+    String mCurrentUserRef;
 
-    public ItemAdapter(List<TaskItem> items) {
+    public ItemAdapter(List<TaskItem> items, String currentUserRef) {
         mItems = items;
+        mCurrentUserRef = currentUserRef;
     }
 
     @NonNull
@@ -93,10 +95,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 Intent intent = new Intent(context, DetailActivity.class);
                 // include the item as an extra, wrapping it with Parceler library
                 intent.putExtra(TaskItem.class.getSimpleName(), Parcels.wrap(item));
+                intent.putExtra("current_user", mCurrentUserRef);
                 // execute the intent
                 context.startActivity(intent);
-
-
             }
         }
     }

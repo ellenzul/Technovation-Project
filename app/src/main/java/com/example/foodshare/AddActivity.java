@@ -31,7 +31,6 @@ import java.util.Locale;
 import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
-import java.util.Locale;
 
 public class AddActivity extends AppCompatActivity {
     private EditText etTitle;
@@ -52,11 +51,14 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        imagesRef = storageRef.child("images");
+
         etTitle = findViewById(R.id.etTitle);
         etDescription = findViewById(R.id.etDescription);
         etTags = findViewById(R.id.etTags);
         etLocation = findViewById(R.id.etLocation);
-
 
         btnAddImage = findViewById(R.id.btnAddImage);
         addedImageView = findViewById(R.id.addedImageView);
@@ -64,19 +66,10 @@ public class AddActivity extends AppCompatActivity {
         btnAddItem = findViewById(R.id.btnAddItem);
         btnAddItem.setOnClickListener(v -> onAddItem(v));
 
-
         btnAddImage.setOnClickListener(v -> {
             Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(takePhotoIntent, CAMERA_REQUEST_ID);
-
-            storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-            imagesRef = storageRef.child("images");
         });
-
-
-
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -86,12 +79,17 @@ public class AddActivity extends AppCompatActivity {
             addedImage = (Bitmap) data.getExtras().get("data");
             // set image preview
             addedImageView.setImageBitmap(addedImage);
+            addedImageView.setVisibility(View.VISIBLE);
         }
-
     }
 
     public void onAddItem(View v) {
-TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getText().toString(), etTags.getText().toString(), etLocation.getText().toString());
+        TaskItem newItem = new TaskItem(
+                etTitle.getText().toString(),
+                etDescription.getText().toString(),
+                etTags.getText().toString(),
+                etLocation.getText().toString()
+        );
         // save image to firebase storage
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.US);
@@ -128,7 +126,6 @@ TaskItem newItem = new TaskItem(etTitle.getText().toString(), etDescription.getT
                 });
             }
         });
-
     }
 
 }

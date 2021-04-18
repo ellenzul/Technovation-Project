@@ -29,7 +29,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,11 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
         itemsRecyclerView = findViewById(R.id.itemsRecyclerView);
         itemsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        itemAdapter = new ItemAdapter(foodList);
+        itemAdapter = new ItemAdapter(foodList, currentUserRef);
         itemsRecyclerView.setAdapter(itemAdapter);
 
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        foodList.clear();
+        itemAdapter.notifyDataSetChanged();
         fetchPostsFromFirebase();
     }
 
@@ -88,17 +94,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.miLogout:
                 signOut();
                 return true;
-
             case R.id.miUploads:
                 openMyUploads();
                 return true;
             case R.id.miAbout:
                 openAboutPage();
                 return true;
-                default:
+            default:
                 return super.onOptionsItemSelected(item);
-
-
         }
     }
 
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                                         postData.get("tags").toString(),
                                         postData.get("location").toString()
                                 );
+                                newPost.postCreator = postData.get("postCreator").toString();
+                                newPost.postId = document.getId();
                                 if (postData.get("imageUrl") != null) {
                                     String imageUrl = postData.get("imageUrl").toString();
                                     newPost.imageUri = Uri.parse(imageUrl);
@@ -175,13 +180,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void signOut() {
         FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        this.startActivity(intent);
     }
 
     public void openMyUploads() {
         Intent intent = new Intent(this, NotificationActivity.class);
         intent.putExtra("current_user", currentUserRef);
         this.startActivity(intent);
-
     }
 
     public void openAboutPage() {
@@ -208,4 +214,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-
